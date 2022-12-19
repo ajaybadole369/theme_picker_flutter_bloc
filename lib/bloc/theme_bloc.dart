@@ -8,14 +8,15 @@ part 'theme_event.dart';
 
 part 'theme_state.dart';
 
-class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(ThemeInitial()) {
+class ThemeBloc extends Bloc<ThemeEvent, ThemeInitial> {
+  static String? selectedColor;
+
+  ThemeBloc() : super(const ThemeInitial(color: '0xFF202A44')) {
     on<ThemeEvent>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? value = prefs.getString('pref_key');
-      if (value != null) {
-        emit(SelectedThemeState(color: value));
-      }
+      String value = prefs.getString('pref_key') ?? '0xFF202A44';
+      selectedColor = value;
+      emit(ThemeInitial(color: value));
     });
   }
 }
@@ -25,7 +26,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 class ThemePreferences {
   static const prefKey = "pref_key";
 
- static setTheme(String value) async {
+  static setTheme(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(prefKey, value);
   }

@@ -1,12 +1,9 @@
 part of 'theme_bloc.dart';
 
 @immutable
-abstract class ThemeState {}
-
-class ThemeInitial extends ThemeState {}
-
-class SelectedThemeState extends ThemeState {
+class ThemeInitial {
   final String color;
 
-  SelectedThemeState({required this.color});
+  const ThemeInitial({required this.color});
 }
+

@@ -5,14 +5,14 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../bloc/theme_bloc.dart';
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // key: scaffoldKey,
       appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+          backgroundColor: Color(int.parse(ThemeBloc.selectedColor.toString())),
           title: Text('HOME',
               style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
           centerTitle: true),
@@ -28,20 +28,18 @@ class Home extends StatelessWidget {
                       decoration: BoxDecoration(
                           color:
                               Theme.of(context).colorScheme.onPrimaryContainer),
-                      accountName: Text('ThemeDemo'),
-                      accountEmail: Text('themedemo@demo.com')))
+                      accountName: const Text('ThemeDemo'),
+                      accountEmail: const Text('themedemo@demo.com')))
             ],
           )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          BlocBuilder<ThemeBloc, ThemeState>(
+          BlocBuilder<ThemeBloc, ThemeInitial>(
             builder: (context, state) {
               return ColorPicker(
-                pickerColor: (state is SelectedThemeState)
-                    ? Color(int.parse(state.color))
-                    : Colors.blue,
+                pickerColor: Color(int.parse(state.color)),
                 onColorChanged: (Color value) {
                   ThemePreferences.setTheme(
                       "0x${value.value.toRadixString(16).toString()}");
