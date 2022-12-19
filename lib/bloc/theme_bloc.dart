@@ -15,8 +15,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeInitial> {
     on<ThemeEvent>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String value = prefs.getString('pref_key') ?? '0xFF202A44';
-      selectedColor = value;
       emit(ThemeInitial(color: value));
+      selectedColor = value;
     });
   }
 }

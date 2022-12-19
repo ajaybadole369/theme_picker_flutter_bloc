@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
                 onColorChanged: (Color value) {
                   ThemePreferences.setTheme(
                       "0x${value.value.toRadixString(16).toString()}");
-                  BlocProvider.of<ThemeBloc>(context).add(ThemeEvent());
+                  BlocProvider.of<ThemeBloc>(context).add(const ThemeEvent());
                 },
               );
             },
